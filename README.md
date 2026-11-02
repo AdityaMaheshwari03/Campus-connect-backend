@@ -316,54 +316,5 @@ You can test every endpoint directly using Postman:
   }
   ```
 
----
 
-## ⚠️ Error Handling & HTTP Status Codes
 
-The API handles typical failure cases gracefully:
-
-| Scenario | HTTP Status Code | Response Example |
-| :--- | :--- | :--- |
-| Missing mandatory field | `400 Bad Request` | `{"success": false, "message": "Please provide all required fields..."}` |
-| Duplicate rollNumber / email | `400 Bad Request` | `{"success": false, "message": "A student with this roll number or email already exists"}` |
-| Invalid MongoDB ObjectId string | `400 Bad Request` | `{"success": false, "message": "Invalid student ID format: 123"}` |
-| Student ID not found in database | `404 Not Found` | `{"success": false, "message": "Student not found with ID: ..."}` |
-| Invalid route accessed | `404 Not Found` | `{"success": false, "message": "Cannot find route: GET /api/unknown"}` |
-| Database / Server exception | `500 Internal Server Error` | `{"success": false, "message": "Server error while creating student", "error": "..."}` |
-
----
-
-## 🚀 How to Push to GitHub
-
-1. Initialize git in the project directory:
-   ```bash
-   git init
-   ```
-2. Verify `.gitignore` is preventing `.env` and `node_modules` from staging:
-   ```bash
-   git status
-   ```
-3. Stage and commit files:
-   ```bash
-   git add .
-   git commit -m "Initial commit: Campus Connect Student Management System backend"
-   ```
-4. Link your GitHub repository and push:
-   ```bash
-   git branch -M main
-   git remote add origin https://github.com/<your-username>/<your-repo-name>.git
-   git push -u origin main
-   ```
-
----
-
-## 👨‍💻 College Demo Checklist
-
-Before demonstrating live to your professor or examiner:
-1. Ensure `.env` has a working `MONGO_URI` with IP Access configured in Atlas (`0.0.0.0/0`).
-2. Start server in terminal: `npm run dev`. Confirm **"MongoDB Connected Successfully"** appears.
-3. Open Postman.
-4. Execute `POST /api/students` to add 1-2 students.
-5. Execute `GET /api/students` to show the list fetched from Atlas.
-6. Open your MongoDB Atlas web dashboard > Browse Collections to show the documents stored in cloud.
-7. Execute `PUT` and `DELETE` in Postman to demonstrate full CRUD functionality.
