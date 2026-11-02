@@ -1,0 +1,5 @@
+$kind: http-request
+description: Fetches a single student document by their MongoDB ObjectId
+url: http://localhost:5000/api/students/REPLACE_WITH_STUDENT_ID
+method: GET
+order: 4000

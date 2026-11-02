@@ -1,0 +1,253 @@
+info:
+  _postman_id: c1f7b022-86f1-4db5-b82b-658f8b3b3200
+  name: Campus Connect – Student Management System
+  description: |
+    Postman Collection for Campus Connect - Student Management System.
+    Compatible with Postman Local Mode and Git workflows (v3 collection format).
+  schema: https://schema.getpostman.com/json/collection/v3.0.0/collection.json
+
+variable:
+  - key: baseUrl
+    value: http://localhost:5000
+    type: string
+    description: Base URL for the local Express backend server
+  - key: studentId
+    value: ""
+    type: string
+    description: MongoDB ObjectId of a student (fill after creating a student)
+
+item:
+  - name: 0. Health Check / Root
+    request:
+      method: GET
+      header: []
+      url:
+        raw: "{{baseUrl}}/"
+        host:
+          - "{{baseUrl}}"
+        path:
+          - ""
+      description: Check if the API server is online and list available endpoints.
+    response:
+      - name: 200 OK - Health Check
+        status: OK
+        code: 200
+        _postman_previewlanguage: json
+        header:
+          - key: Content-Type
+            value: application/json
+        body: |
+          {
+            "success": true,
+            "message": "Welcome to Campus Connect - Student Management System API",
+            "endpoints": {
+              "getAllStudents": "GET /api/students",
+              "getStudentById": "GET /api/students/:id",
+              "createStudent": "POST /api/students",
+              "updateStudent": "PUT /api/students/:id",
+              "deleteStudent": "DELETE /api/students/:id"
+            }
+          }
+
+  - name: 1. Create Student (POST)
+    request:
+      method: POST
+      header:
+        - key: Content-Type
+          value: application/json
+      body:
+        mode: raw
+        raw: |
+          {
+            "name": "Aarav Sharma",
+            "rollNumber": "CS2026001",
+            "email": "aarav.sharma@college.edu",
+            "branch": "Computer Science and Engineering",
+            "semester": 6
+          }
+        options:
+          raw:
+            language: json
+      url:
+        raw: "{{baseUrl}}/api/students"
+        host:
+          - "{{baseUrl}}"
+        path:
+          - api
+          - students
+      description: Registers a new student document into MongoDB Atlas.
+    response:
+      - name: 201 Created - Student Registered
+        status: Created
+        code: 201
+        _postman_previewlanguage: json
+        header:
+          - key: Content-Type
+            value: application/json
+        body: |
+          {
+            "success": true,
+            "message": "Student registered successfully",
+            "data": {
+              "_id": "67262f0a1234567890abcdef",
+              "name": "Aarav Sharma",
+              "rollNumber": "CS2026001",
+              "email": "aarav.sharma@college.edu",
+              "branch": "Computer Science and Engineering",
+              "semester": 6,
+              "createdAt": "2026-11-02T14:30:00.000Z",
+              "updatedAt": "2026-11-02T14:30:00.000Z",
+              "__v": 0
+            }
+          }
+
+  - name: 2. Get All Students (GET)
+    request:
+      method: GET
+      header: []
+      url:
+        raw: "{{baseUrl}}/api/students"
+        host:
+          - "{{baseUrl}}"
+        path:
+          - api
+          - students
+      description: Retrieves a list of all students stored in the database.
+    response:
+      - name: 200 OK - All Students List
+        status: OK
+        code: 200
+        _postman_previewlanguage: json
+        header:
+          - key: Content-Type
+            value: application/json
+        body: |
+          {
+            "success": true,
+            "count": 1,
+            "data": [
+              {
+                "_id": "67262f0a1234567890abcdef",
+                "name": "Aarav Sharma",
+                "rollNumber": "CS2026001",
+                "email": "aarav.sharma@college.edu",
+                "branch": "Computer Science and Engineering",
+                "semester": 6,
+                "createdAt": "2026-11-02T14:30:00.000Z",
+                "updatedAt": "2026-11-02T14:30:00.000Z"
+              }
+            ]
+          }
+
+  - name: 3. Get Student by ID (GET)
+    request:
+      method: GET
+      header: []
+      url:
+        raw: "{{baseUrl}}/api/students/{{studentId}}"
+        host:
+          - "{{baseUrl}}"
+        path:
+          - api
+          - students
+          - "{{studentId}}"
+      description: Fetches details for a single student using their unique MongoDB ObjectId.
+    response:
+      - name: 200 OK - Single Student Found
+        status: OK
+        code: 200
+        _postman_previewlanguage: json
+        header:
+          - key: Content-Type
+            value: application/json
+        body: |
+          {
+            "success": true,
+            "data": {
+              "_id": "67262f0a1234567890abcdef",
+              "name": "Aarav Sharma",
+              "rollNumber": "CS2026001",
+              "email": "aarav.sharma@college.edu",
+              "branch": "Computer Science and Engineering",
+              "semester": 6
+            }
+          }
+
+  - name: 4. Update Student (PUT)
+    request:
+      method: PUT
+      header:
+        - key: Content-Type
+          value: application/json
+      body:
+        mode: raw
+        raw: |
+          {
+            "semester": 7,
+            "branch": "CSE - Data Science"
+          }
+        options:
+          raw:
+            language: json
+      url:
+        raw: "{{baseUrl}}/api/students/{{studentId}}"
+        host:
+          - "{{baseUrl}}"
+        path:
+          - api
+          - students
+          - "{{studentId}}"
+      description: Updates one or more fields of an existing student.
+    response:
+      - name: 200 OK - Student Updated
+        status: OK
+        code: 200
+        _postman_previewlanguage: json
+        header:
+          - key: Content-Type
+            value: application/json
+        body: |
+          {
+            "success": true,
+            "message": "Student updated successfully",
+            "data": {
+              "_id": "67262f0a1234567890abcdef",
+              "name": "Aarav Sharma",
+              "rollNumber": "CS2026001",
+              "email": "aarav.sharma@college.edu",
+              "branch": "CSE - Data Science",
+              "semester": 7
+            }
+          }
+
+  - name: 5. Delete Student (DELETE)
+    request:
+      method: DELETE
+      header: []
+      url:
+        raw: "{{baseUrl}}/api/students/{{studentId}}"
+        host:
+          - "{{baseUrl}}"
+        path:
+          - api
+          - students
+          - "{{studentId}}"
+      description: Permanently removes a student record from the database by ID.
+    response:
+      - name: 200 OK - Student Deleted
+        status: OK
+        code: 200
+        _postman_previewlanguage: json
+        header:
+          - key: Content-Type
+            value: application/json
+        body: |
+          {
+            "success": true,
+            "message": "Student deleted successfully",
+            "data": {
+              "_id": "67262f0a1234567890abcdef",
+              "name": "Aarav Sharma",
+              "rollNumber": "CS2026001"
+            }
+          }

@@ -12,3 +12,6 @@ yarn-error.log*
 # OS metadata
 .DS_Store
 Thumbs.db
+
+.postman/
+postman/globals/workspace.globals.yaml

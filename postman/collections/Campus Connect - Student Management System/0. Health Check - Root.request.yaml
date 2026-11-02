@@ -1,0 +1,6 @@
+$kind: http-request
+name: 0. Health Check / Root
+description: Check if API server is running and view available endpoints
+url: http://localhost:5000/
+method: GET
+order: 1000
