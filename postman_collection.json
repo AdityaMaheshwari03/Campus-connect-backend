@@ -1,0 +1,124 @@
+{
+  "info": {
+    "_postman_id": "c1f7b022-86f1-4db5-b82b-658f8b3b3200",
+    "name": "Campus Connect - Student Management System",
+    "description": "Postman Collection for testing Campus Connect CRUD APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "0. Health Check / Root",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": [""]
+        },
+        "description": "Check if API server is running and view available endpoints"
+      },
+      "response": []
+    },
+    {
+      "name": "1. Create Student (POST)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Aarav Sharma\",\n  \"rollNumber\": \"CS2026001\",\n  \"email\": \"aarav.sharma@college.edu\",\n  \"branch\": \"Computer Science and Engineering\",\n  \"semester\": 6\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/students",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "students"]
+        },
+        "description": "Registers a new student into MongoDB Atlas"
+      },
+      "response": []
+    },
+    {
+      "name": "2. Get All Students (GET)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/students",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "students"]
+        },
+        "description": "Fetches a list of all students sorted by newest first"
+      },
+      "response": []
+    },
+    {
+      "name": "3. Get Student by ID (GET)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/students/REPLACE_WITH_STUDENT_ID",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "students", "REPLACE_WITH_STUDENT_ID"]
+        },
+        "description": "Fetches a single student document by their MongoDB ObjectId"
+      },
+      "response": []
+    },
+    {
+      "name": "4. Update Student by ID (PUT)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"semester\": 7,\n  \"branch\": \"CSE - Data Science\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/students/REPLACE_WITH_STUDENT_ID",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "students", "REPLACE_WITH_STUDENT_ID"]
+        },
+        "description": "Updates student details by their MongoDB ObjectId"
+      },
+      "response": []
+    },
+    {
+      "name": "5. Delete Student by ID (DELETE)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/students/REPLACE_WITH_STUDENT_ID",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "students", "REPLACE_WITH_STUDENT_ID"]
+        },
+        "description": "Deletes a student record by their MongoDB ObjectId"
+      },
+      "response": []
+    }
+  ]
+}
